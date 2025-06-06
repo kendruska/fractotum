@@ -1,8 +1,7 @@
 import argparse
-import os
-import textwrap
 from text_processing import get_embedding_and_params
 from procedural_generation import render_image, render_video
+import os
 
 def wrap_text_soft(text, width=60):
     words = text.split()
@@ -17,34 +16,29 @@ def wrap_text_soft(text, width=60):
         lines.append(current_line)
     return "\n".join(lines)
 
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', required=True, help='Path to input .txt file containing the text fragment')
-    parser.add_argument('--mode', required=True, choices=['image', 'video'], help='Output mode: image or video')
+    parser.add_argument('--input', required=True, help='Text file (.txt)')
+    parser.add_argument('--mode', required=True, choices=['image', 'video'], help='Output mode')
     args = parser.parse_args()
 
-    try:
-        with open(args.input, 'r', encoding='utf-8') as f:
-            raw_text = f.read()
-    except FileNotFoundError:
-        print(f"❌ File not found: {args.input}")
-        return
+    with open(args.input, 'r', encoding='utf-8') as f:
+        text = f.read()
 
-    formatted_text = wrap_text_soft(raw_text.replace("\n", " ").strip())
+    formatted_text = wrap_text_soft(text.replace("\n", " ").strip())
 
     print("\n📜 Input text preview:\n")
     print(formatted_text)
     print("\n---\n")
 
-    embed, params = get_embedding_and_params(formatted_text)
+    embed, params = get_embedding_and_params(text)
     base_name = os.path.splitext(args.input)[0]
 
-    output_path = f"{base_name}_fractotum.{'png' if args.mode == 'image' else 'mp4'}"
     if args.mode == 'image':
-        render_image(embed, params, output_path)
-    else:
-        render_video(embed, params, output_path)
+        render_image(embed, params, base_name + '_fractotum.png')
+    elif args.mode == 'video':
+        render_video(embed, params, base_name + '_fractotum.mp4')
 
 if __name__ == "__main__":
     main()
-    print("✅ Processing complete!")
