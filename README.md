@@ -157,3 +157,7 @@ The result is something **unique to each text**, with a visual identity drawn on
 ## 📄 License
 
 This is a personal and artistic experiment. You're welcome to explore, remix, or extend it, as long as you respect the original intent: **procedural creation, not generative reuse**.
+
+## 🙏 Acknowledgments
+
+🤗 Huge thanks to **Aday**, who volunteered as tribute to test this procedural experiment. 
