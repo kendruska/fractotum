@@ -139,7 +139,7 @@ en la narración dél no se salga un punto de la verdad.
 
 ### 🖼️ Generated Image
 
-![Example Output](test_fractotum.png)
+![Example Output](test_data/test_fractotum.png)
 
 ### 🎵 Generated Audio (MIDI)
 
