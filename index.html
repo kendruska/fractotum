@@ -8,7 +8,7 @@
     <!-- Meta Description -->
     <meta name="description" content="Fractotum transforms literary text into stunning procedural art and music using mathematical algorithms. No AI, no training data - pure mathematical creativity.">
     <meta name="keywords" content="procedural art, fractal generation, text to art, mathematical visualization, algorithmic creativity, literary art">
-    <meta name="author" content="Fractotum Project">
+    <meta name="author" content="Candela García Fernández">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -25,6 +25,7 @@
     <meta property="twitter:title" content="Fractotum - Procedural Art from Literary Text">
     <meta property="twitter:description" content="Transform literary text into stunning procedural art and music using pure mathematical algorithms.">
     <meta property="twitter:image" content="https://github.com/kendruska/fractotum/assets/banner.png">">
+	<meta property="twitter:author" content="@srta_cherenkov">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="./assets/logo.png">
@@ -617,6 +618,7 @@
             color: var(--text-muted);
             font-size: 3rem;
             gap: 1rem;
+			width: 100%;
         }
         
         .modal-audio-placeholder .audio-icon {
@@ -830,11 +832,9 @@
                 </div>
 
                 <!-- Placeholder for more examples -->
-                <div class="gallery-item" data-modal-type="image" data-modal-title="Tale of Two Cities" data-modal-src="" data-modal-text="It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair." data-modal-description="Dickens' contrasting themes visualized through dual-spiral dynamics and opposing color harmonies.">
+                <div class="gallery-item" data-modal-type="image" data-modal-title="Tale of Two Cities" data-modal-src="assets/dickens.png" data-modal-text="It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair." data-modal-description="Dickens' contrasting themes visualized through dual-spiral dynamics and opposing color harmonies.">
                     <div class="gallery-media">
-                        <div style="width: 100%; height: 100%; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
-                            🎨 Example Image
-                        </div>
+						<img src="assets/dickens.png" alt="Don Quixote Fractal Art" loading="lazy">
                         <div class="text-overlay">
                             <div class="overlay-text">
                                 "It was the best of times, it was the worst of times, 
@@ -851,10 +851,10 @@
                     </div>
                 </div>
 
-                <div class="gallery-item" data-modal-type="video" data-modal-title="Biblical Genesis" data-modal-src="" data-modal-text="In the beginning was the Word, and the Word was with God, and the Word was God. The same was in the beginning with God. All things were made by him; and without him was not any thing made that was made. In him was life; and the life was the light of men." data-modal-description="Sacred text transformed into flowing, organic patterns that evolve from chaos to order, reflecting themes of creation.">
+                <div class="gallery-item" data-modal-type="video" data-modal-title="Biblical Genesis" data-modal-src="assets/bible.mp4" data-modal-text="In the beginning was the Word, and the Word was with God, and the Word was God. The same was in the beginning with God. All things were made by him; and without him was not any thing made that was made. In him was life; and the life was the light of men." data-modal-description="Sacred text transformed into flowing, organic patterns that evolve from chaos to order, reflecting themes of creation.">
                     <div class="gallery-media">
                         <div style="width: 100%; height: 100%; background: var(--secondary-gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
-                            🎬 Example Video
+                            <video src="assets/bible.mp4" autoplay style="width: 100%; height: 100%; border-radius: 10px;"></video>
                         </div>
                         <div class="text-overlay">
                             <div class="overlay-text">
@@ -872,10 +872,10 @@
                     </div>
                 </div>
 
-                <div class="gallery-item" data-modal-type="audio" data-modal-title="Shakespeare Sonnet 18" data-modal-src="" data-modal-text="Shall I compare thee to a summer's day? Thou art more lovely and more temperate: Rough winds do shake the darling buds of May, And summer's lease hath all too short a date: Sometime too hot the eye of heaven shines, And often is his gold complexion dimm'd; And every fair from fair sometime declines, By chance or nature's changing course untrimm'd;" data-modal-description="The rhythm and meter of Shakespeare's sonnet converted into melodic patterns with gentle, flowing harmonies.">
+                <div class="gallery-item" data-modal-type="audio" data-modal-title="Shakespeare Sonnet 18" data-modal-src="assets/shakespeare.mp3" data-modal-text="Shall I compare thee to a summer's day? Thou art more lovely and more temperate: Rough winds do shake the darling buds of May, And summer's lease hath all too short a date: Sometime too hot the eye of heaven shines, And often is his gold complexion dimm'd; And every fair from fair sometime declines, By chance or nature's changing course untrimm'd;" data-modal-description="The rhythm and meter of Shakespeare's sonnet converted into melodic patterns with gentle, flowing harmonies.">
                     <div class="gallery-media">
                         <div style="width: 100%; height: 100%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
-                            🎵 Example Audio
+                            🎵 Click for audio
                         </div>
                         <div class="text-overlay">
                             <div class="overlay-text">
@@ -1076,7 +1076,7 @@
                         const audio = document.createElement('audio');
                         audio.src = src;
                         audio.controls = true;
-                        audio.style.width = '100%';
+                        audio.style.width = '80%';
                         audioContainer.innerHTML = '<div class="audio-icon">🎵</div>';
                         audioContainer.appendChild(audio);
                     } else {
