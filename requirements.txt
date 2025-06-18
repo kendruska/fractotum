@@ -1,0 +1,7 @@
+sentence-transformers
+matplotlib
+numpy
+scipy
+midiutil
+pillow
+numba

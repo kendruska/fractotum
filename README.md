@@ -19,6 +19,7 @@ You provide a `.txt` file with a literary fragment (10+ lines recommended). Frac
    - Rotational flows
    - Ray-based lighting
    - Particle-style accumulation
+4. (New!) Generates a unique **procedural audio (MIDI)** file from the same text embedding, mapping semantic features to musical structure, instruments, and melody.
 
 ---
 
@@ -29,16 +30,26 @@ Fractotum/
 ├── main.py                   # Entry point
 ├── text_processing.py        # Text-to-embedding + param mapping
 ├── procedural_generation.py  # Image/video generation with procedural fractals
+├── music.py                  # Audio (MIDI) generation from text embedding
+├── requirements.txt          # All required Python dependencies
 ```
 
 ---
 
 ## ⚙️ Installation
 
-You'll need Python 3.8+ and the following libraries:
+You'll need Python 3.8+.
+
+All required dependencies are listed in `requirements.txt`. To install them, run:
 
 ```bash
-pip install sentence-transformers matplotlib numpy scipy
+pip install -r requirements.txt
+```
+
+Or, if you prefer, you can install the main libraries individually:
+
+```bash
+pip install sentence-transformers matplotlib numpy scipy midiutil pillow numba
 ```
 
 You also need `ffmpeg` if you want to export animated `.mp4` files.
@@ -88,6 +99,14 @@ python main.py --input my_text.txt --mode video
 
 Output: `my_text_fractotum.mp4`
 
+### 🎵 Generate audio (MIDI)
+
+```bash
+python main.py --input my_text.txt --mode audio
+```
+
+Output: `my_text_fractotum.mid`
+
 ---
 
 ## 🧪 Test Example
@@ -122,6 +141,12 @@ en la narración dél no se salga un punto de la verdad.
 
 ![Example Output](test_fractotum.png)
 
+### 🎵 Generated Audio (MIDI)
+
+The command above will also generate a MIDI file, which you can open in any DAW or MIDI player.
+
+---
+
 ## 💡 Philosophy
 
 This project is a creative experiment in **algorithmic art without AI synthesis**.
@@ -132,7 +157,7 @@ I deliberately avoid:
 - Diffusion models
 - Any model trained to imitate human art
 
-Instead, Fractotum explores how **pure mathematics, text embeddings, and iteration** can create emotionally resonant visuals that emerge from **semantic structure**, not learned imitation.
+Instead, Fractotum explores how **pure mathematics, text embeddings, and iteration** can create emotionally resonant visuals and music that emerge from **semantic structure**, not learned imitation.
 
 It doesn’t borrow from other artists, datasets, or visuals. It aims to explore how far we can push mathematical beauty using:
 
@@ -140,7 +165,7 @@ It doesn’t borrow from other artists, datasets, or visuals. It aims to explore
 - Procedural geometry  
 - Pure computation  
 
-The result is something **unique to each text**, with a visual identity drawn only from your words and mathematical logic.
+The result is something **unique to each text**, with a visual and musical identity drawn only from your words and mathematical logic.
 
 ---
 
@@ -151,9 +176,12 @@ The result is something **unique to each text**, with a visual identity drawn on
 - Real-time interactive visualizer
 - Export to high-res prints or vector art
 - CLI support for multiple `.txt` batch rendering
+- More advanced audio synthesis
 
 ---
 
 ## 📄 License
 
 This is a personal and artistic experiment. You're welcome to explore, remix, or extend it, as long as you respect the original intent: **procedural creation, not generative reuse**.
+
+
