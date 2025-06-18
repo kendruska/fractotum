@@ -111,6 +111,27 @@
             background-clip: text;
         }
         
+        .github-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .github-badge:hover {
+            transform: translateY(-1px);
+        }
+        
+        .github-badge svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+        
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -443,8 +464,18 @@
         
         /* Responsive */
         @media (max-width: 768px) {
+            .nav {
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
             .nav-links {
                 display: none;
+            }
+            
+            .github-badge {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
             }
             
             .cta-buttons {
@@ -483,12 +514,17 @@
     <header class="header">
         <nav class="nav">
             <div class="logo">Fractotum</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
+            <div style="display: flex; align-items: center; gap: 2rem;">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+				<a href="https://github.com/kendruska/fractotum" class="github-badge" target="_blank" rel="noopener noreferrer">
+					<img src="https://img.shields.io/github/stars/kendruska/fractotum?style=for-the-badge&logo=github&color=667eea&labelColor=1a1a1a" alt="GitHub Stars" style="border-radius: 6px;">
+				</a>
+            </div>
         </nav>
     </header>
 
