@@ -184,4 +184,10 @@ The result is something **unique to each text**, with a visual and musical ident
 
 This is a personal and artistic experiment. You're welcome to explore, remix, or extend it, as long as you respect the original intent: **procedural creation, not generative reuse**.
 
+<<<<<<< HEAD
 
+=======
+## 🙏 Acknowledgments
+
+🤗 Huge thanks to **Aday**, who volunteered as tribute to test this procedural experiment. 
+>>>>>>> 7b519eb8c9c84fb80b56103a0927e9a54cc786ee
