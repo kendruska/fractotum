@@ -462,6 +462,181 @@
             color: var(--text-muted);
         }
         
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            opacity: 1;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            background: var(--dark-lighter);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-height: calc(90vh - 120px);
+        }
+        
+        .modal-media {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            min-height: 400px;
+        }
+        
+        .modal-media img,
+        .modal-media video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+        
+        .modal-media audio {
+            width: 100%;
+        }
+        
+        .modal-text {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .modal-source-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-source-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 3px solid;
+            border-image: var(--primary-gradient) 1;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .modal-description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .modal-audio-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 3rem;
+            gap: 1rem;
+        }
+        
+        .modal-audio-placeholder .audio-icon {
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Responsive Modal */
+        @media (max-width: 968px) {
+            .modal-body {
+                grid-template-columns: 1fr;
+                max-height: none;
+            }
+            
+            .modal-content {
+                width: 95vw;
+                max-height: 95vh;
+            }
+            
+            .modal-media {
+                min-height: 250px;
+            }
+            
+            .modal-text {
+                padding: 1.5rem;
+            }
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .nav {
@@ -621,7 +796,7 @@
             </p>
             <div class="gallery-grid">
                 <!-- Don Quixote Example -->
-                <div class="gallery-item">
+                <div class="gallery-item" data-modal-type="image" data-modal-title="Don Quixote Opening" data-modal-src="test_data/test_fractotum.png" data-modal-text="En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha mucho tiempo que vivía un hidalgo de los de lanza en astillero, adarga antigua, rocín flaco y galgo corredor. Una olla de algo más vaca que carnero, salpicón las más noches, duelos y quebrantos los sábados, lantejas los viernes, algún palomino de añadidura los domingos, consumían las tres partes de su hacienda." data-modal-description="The iconic opening of Cervantes' masterpiece, transformed into a fractal landscape that captures the dreamy, nostalgic essence of La Mancha.">
                     <div class="gallery-media">
                         <img src="test_data/test_fractotum.png" alt="Don Quixote Fractal Art" loading="lazy">
                         <div class="text-overlay">
@@ -642,7 +817,7 @@
                 </div>
 
                 <!-- Placeholder for more examples -->
-                <div class="gallery-item">
+                <div class="gallery-item" data-modal-type="image" data-modal-title="Tale of Two Cities" data-modal-src="" data-modal-text="It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair." data-modal-description="Dickens' contrasting themes visualized through dual-spiral dynamics and opposing color harmonies.">
                     <div class="gallery-media">
                         <div style="width: 100%; height: 100%; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
                             🎨 Example Image
@@ -663,7 +838,7 @@
                     </div>
                 </div>
 
-                <div class="gallery-item">
+                <div class="gallery-item" data-modal-type="video" data-modal-title="Biblical Genesis" data-modal-src="" data-modal-text="In the beginning was the Word, and the Word was with God, and the Word was God. The same was in the beginning with God. All things were made by him; and without him was not any thing made that was made. In him was life; and the life was the light of men." data-modal-description="Sacred text transformed into flowing, organic patterns that evolve from chaos to order, reflecting themes of creation.">
                     <div class="gallery-media">
                         <div style="width: 100%; height: 100%; background: var(--secondary-gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
                             🎬 Example Video
@@ -684,7 +859,7 @@
                     </div>
                 </div>
 
-                <div class="gallery-item">
+                <div class="gallery-item" data-modal-type="audio" data-modal-title="Shakespeare Sonnet 18" data-modal-src="" data-modal-text="Shall I compare thee to a summer's day? Thou art more lovely and more temperate: Rough winds do shake the darling buds of May, And summer's lease hath all too short a date: Sometime too hot the eye of heaven shines, And often is his gold complexion dimm'd; And every fair from fair sometime declines, By chance or nature's changing course untrimm'd;" data-modal-description="The rhythm and meter of Shakespeare's sonnet converted into melodic patterns with gentle, flowing harmonies.">
                     <div class="gallery-media">
                         <div style="width: 100%; height: 100%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
                             🎵 Example Audio
@@ -760,6 +935,35 @@
         </div>
     </footer>
 
+    <!-- Modal -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Gallery Item</h3>
+                <button class="modal-close" id="closeModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-media" id="modalMedia">
+                    <!-- Content will be inserted here -->
+                </div>
+                <div class="modal-text">
+                    <div>
+                        <h4 class="modal-source-title">Source Text</h4>
+                        <div class="modal-source-text" id="modalSourceText">
+                            <!-- Source text will be inserted here -->
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="modal-source-title">Description</h4>
+                        <p class="modal-description" id="modalDescription">
+                            <!-- Description will be inserted here -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -801,6 +1005,104 @@
         images.forEach(img => {
             img.classList.add('loading');
             imageObserver.observe(img);
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('galleryModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMedia = document.getElementById('modalMedia');
+        const modalSourceText = document.getElementById('modalSourceText');
+        const modalDescription = document.getElementById('modalDescription');
+        const closeModal = document.getElementById('closeModal');
+
+        // Open modal when gallery item is clicked
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const type = item.dataset.modalType;
+                const title = item.dataset.modalTitle;
+                const src = item.dataset.modalSrc;
+                const text = item.dataset.modalText;
+                const description = item.dataset.modalDescription;
+
+                // Set modal content
+                modalTitle.textContent = title;
+                modalSourceText.textContent = text;
+                modalDescription.textContent = description;
+
+                // Clear previous media content
+                modalMedia.innerHTML = '';
+
+                // Add appropriate media based on type
+                if (type === 'image') {
+                    if (src) {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.alt = title;
+                        img.style.maxWidth = '100%';
+                        img.style.maxHeight = '100%';
+                        modalMedia.appendChild(img);
+                    } else {
+                        modalMedia.innerHTML = '<div style="color: var(--text-muted); text-align: center;">🖼️<br>Image Preview</div>';
+                    }
+                } else if (type === 'video') {
+                    if (src) {
+                        const video = document.createElement('video');
+                        video.src = src;
+                        video.controls = true;
+                        video.style.maxWidth = '100%';
+                        video.style.maxHeight = '100%';
+                        modalMedia.appendChild(video);
+                    } else {
+                        modalMedia.innerHTML = '<div class="modal-audio-placeholder"><div class="audio-icon">🎬</div><div>Video Preview</div></div>';
+                    }
+                } else if (type === 'audio') {
+                    const audioContainer = document.createElement('div');
+                    audioContainer.className = 'modal-audio-placeholder';
+                    
+                    if (src) {
+                        const audio = document.createElement('audio');
+                        audio.src = src;
+                        audio.controls = true;
+                        audio.style.width = '100%';
+                        audioContainer.innerHTML = '<div class="audio-icon">🎵</div>';
+                        audioContainer.appendChild(audio);
+                    } else {
+                        audioContainer.innerHTML = '<div class="audio-icon">🎵</div><div>MIDI Audio Preview</div><div style="font-size: 0.9rem; opacity: 0.7;">Generated from text semantics</div>';
+                    }
+                    
+                    modalMedia.appendChild(audioContainer);
+                }
+
+                // Show modal with animation
+                modal.style.display = 'flex';
+                requestAnimationFrame(() => {
+                    modal.classList.add('active');
+                });
+            });
+        });
+
+        // Close modal functionality
+        const closeModalFunction = () => {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        };
+
+        closeModal.addEventListener('click', closeModalFunction);
+
+        // Close modal when clicking outside content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModalFunction();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModalFunction();
+            }
         });
     </script>
 </body>
