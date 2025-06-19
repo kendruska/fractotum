@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractotum - Procedural Art from Literary Text</title>
+    
+    <!-- Meta Description -->
+    <meta name="description" content="Fractotum transforms literary text into stunning procedural art and music using mathematical algorithms. No AI, no training data - pure mathematical creativity.">
+    <meta name="keywords" content="procedural art, fractal generation, text to art, mathematical visualization, algorithmic creativity, literary art">
+    <meta name="author" content="Candela García Fernández">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fractotum.art/">
+    <meta property="og:title" content="Fractotum - Procedural Art from Literary Text">
+    <meta property="og:description" content="Transform literary text into stunning procedural art and music using pure mathematical algorithms. No AI, no training data - just mathematical creativity.">
+    <meta property="og:image" content="https://github.com/kendruska/fractotum/assets/banner.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fractotum.art/">
+    <meta property="twitter:title" content="Fractotum - Procedural Art from Literary Text">
+    <meta property="twitter:description" content="Transform literary text into stunning procedural art and music using pure mathematical algorithms.">
+    <meta property="twitter:image" content="https://github.com/kendruska/fractotum/assets/banner.png">">
+	<meta property="twitter:author" content="@srta_cherenkov">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/logo.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark: #0a0a0a;
+            --dark-lighter: #1a1a1a;
+            --text-light: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo-image {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .github-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .github-badge:hover {
+            transform: translateY(-1px);
+        }
+        
+        .github-badge svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+        }
+
+		.hero > * {
+			z-index: 2;
+		}
+
+		.hero > img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			z-index: 1;
+			filter: blur(5px) brightness(0.2);
+		}
+        
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+			text-align: left;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--border);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            background: var(--primary-gradient);
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            background: var(--secondary-gradient);
+            animation-delay: 2s;
+        }
+        
+        .floating-element:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            background: var(--accent-gradient);
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 8rem 0;
+            background: var(--dark-lighter);
+        }
+
+		.features p {
+			text-align: left;
+		}
+        
+        .section-title {
+            text-align: center;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-description {
+            color: var(--text-muted);
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            padding: 8rem 0;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+			cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.02);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        
+        .gallery-media {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .gallery-media img,
+        .gallery-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .text-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 1rem;
+        }
+        
+        .text-overlay:hover {
+            opacity: 1;
+        }
+        
+        .overlay-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            text-align: center;
+            color: var(--text-light);
+        }
+        
+        .gallery-caption {
+            padding: 1.5rem;
+        }
+        
+        .caption-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .caption-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark-lighter);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-content {
+            text-align: center;
+        }
+        
+        .footer-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-description {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            color: var(--text-muted);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            opacity: 1;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            background: var(--dark-lighter);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-height: calc(90vh - 120px);
+        }
+        
+        .modal-media {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            min-height: 400px;
+        }
+        
+        .modal-media img,
+        .modal-media video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+        
+        .modal-media audio {
+            width: 100%;
+        }
+        
+        .modal-text {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .modal-source-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-source-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 3px solid;
+            border-image: var(--primary-gradient) 1;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .modal-description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .modal-audio-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 3rem;
+            gap: 1rem;
+			width: 100%;
+        }
+        
+        .modal-audio-placeholder .audio-icon {
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Responsive Modal */
+        @media (max-width: 968px) {
+            .modal-body {
+                grid-template-columns: 1fr;
+                max-height: none;
+            }
+            
+            .modal-content {
+                width: 95vw;
+                max-height: 95vh;
+            }
+            
+            .modal-media {
+                min-height: 250px;
+            }
+            
+            .modal-text {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .github-badge {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Loading animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .loading {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="./assets/logo.png" alt="Fractotum Logo" class="logo-image">
+                Fractotum
+            </div>
+            <div style="display: flex; align-items: center; gap: 2rem;">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+				<a href="https://github.com/kendruska/fractotum" class="github-badge" target="_blank" rel="noopener noreferrer">
+					<img src="https://img.shields.io/github/stars/kendruska/fractotum?style=for-the-badge&logo=github&color=667eea&labelColor=1a1a1a" alt="GitHub Stars" style="border-radius: 6px;">
+				</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+		<img src="test_data/test_fractotum.png" alt="Fractotum Hero Image">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Fractotum</h1>
+                <p class="hero-subtitle">Procedural Art from Literary Text</p>
+                <p class="hero-description">
+                    Transform your words into stunning visual art and music using pure mathematical algorithms. 
+                    No AI, no training data, no borrowed creativity — just the mathematical beauty hidden within your text.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#gallery" class="btn btn-primary">
+                        ✨ See Examples
+                    </a>
+                    <a href="https://github.com/kendruska/fractotum" class="btn btn-secondary">
+                        📁 View Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3 class="feature-title">Text Analysis</h3>
+                    <p class="feature-description">
+                        Extracts semantic embeddings from your literary text using advanced transformer models, 
+                        capturing the deep meaning and emotional resonance of your words.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">Visual Generation</h3>
+                    <p class="feature-description">
+                        Maps semantic features to visual parameters, creating unique fractals with Julia sets, 
+                        distortion fields, and gravitational dynamics that reflect your text's essence.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3 class="feature-title">Musical Creation</h3>
+                    <p class="feature-description">
+                        Transforms the same semantic space into procedural MIDI compositions, 
+                        creating melodies and harmonies that echo the rhythm and mood of your text.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔢</div>
+                    <h3 class="feature-title">Pure Mathematics</h3>
+                    <p class="feature-description">
+                        No generative AI, no training data, no borrowed creativity. Everything emerges from 
+                        mathematical transformations, procedural algorithms, and the intrinsic geometry of language.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎞️</div>
+                    <h3 class="feature-title">Multiple Formats</h3>
+                    <p class="feature-description">
+                        Generate static images, animated videos, or MIDI audio files. Each format captures 
+                        different aspects of your text's mathematical signature.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Instant Creation</h3>
+                    <p class="feature-description">
+                        Simply provide a text file and choose your output format. Fractotum handles the rest, 
+                        delivering unique procedural art in seconds.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Gallery</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">
+                Each piece is generated from literary text, transformed through mathematical algorithms into unique visual and musical expressions.
+            </p>
+            <div class="gallery-grid">
+                <!-- Don Quixote Example -->
+                <div class="gallery-item" data-modal-type="image" data-modal-title="Don Quixote Opening" data-modal-src="test_data/test_fractotum.png" data-modal-text="En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha mucho tiempo que vivía un hidalgo de los de lanza en astillero, adarga antigua, rocín flaco y galgo corredor. Una olla de algo más vaca que carnero, salpicón las más noches, duelos y quebrantos los sábados, lantejas los viernes, algún palomino de añadidura los domingos, consumían las tres partes de su hacienda." data-modal-description="The iconic opening of Cervantes' masterpiece, transformed into a fractal landscape that captures the dreamy, nostalgic essence of La Mancha.">
+                    <div class="gallery-media">
+                        <img src="test_data/test_fractotum.png" alt="Don Quixote Fractal Art" loading="lazy">
+                        <div class="text-overlay">
+                            <div class="overlay-text">
+                                "En un lugar de la Mancha, de cuyo nombre no quiero acordarme, 
+                                no ha mucho tiempo que vivía un hidalgo de los de lanza en astillero, 
+                                adarga antigua, rocín flaco y galgo corredor..."
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3 class="caption-title">Don Quixote Opening</h3>
+                        <p class="caption-text">
+                            The iconic opening of Cervantes' masterpiece, transformed into a fractal landscape 
+                            that captures the dreamy, nostalgic essence of La Mancha.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Placeholder for more examples -->
+                <div class="gallery-item" data-modal-type="image" data-modal-title="Tale of Two Cities" data-modal-src="assets/dickens.png" data-modal-text="It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair." data-modal-description="Dickens' contrasting themes visualized through dual-spiral dynamics and opposing color harmonies.">
+                    <div class="gallery-media">
+						<img src="assets/dickens.png" alt="Don Quixote Fractal Art" loading="lazy">
+                        <div class="text-overlay">
+                            <div class="overlay-text">
+                                "It was the best of times, it was the worst of times, 
+                                it was the age of wisdom, it was the age of foolishness..."
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3 class="caption-title">Tale of Two Cities</h3>
+                        <p class="caption-text">
+                            Dickens' contrasting themes visualized through dual-spiral dynamics 
+                            and opposing color harmonies.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-modal-type="video" data-modal-title="Biblical Genesis" data-modal-src="assets/bible.mp4" data-modal-text="In the beginning was the Word, and the Word was with God, and the Word was God. The same was in the beginning with God. All things were made by him; and without him was not any thing made that was made. In him was life; and the life was the light of men." data-modal-description="Sacred text transformed into flowing, organic patterns that evolve from chaos to order, reflecting themes of creation.">
+                    <div class="gallery-media">
+                        <div style="width: 100%; height: 100%; background: var(--secondary-gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                            <video src="assets/bible.mp4" autoplay style="width: 100%; height: 100%; border-radius: 10px;"></video>
+                        </div>
+                        <div class="text-overlay">
+                            <div class="overlay-text">
+                                "In the beginning was the Word, and the Word was with God, 
+                                and the Word was God..."
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3 class="caption-title">Biblical Genesis</h3>
+                        <p class="caption-text">
+                            Sacred text transformed into flowing, organic patterns that evolve 
+                            from chaos to order, reflecting themes of creation.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-modal-type="audio" data-modal-title="Shakespeare Sonnet 18" data-modal-src="assets/shakespeare.mp3" data-modal-text="Shall I compare thee to a summer's day? Thou art more lovely and more temperate: Rough winds do shake the darling buds of May, And summer's lease hath all too short a date: Sometime too hot the eye of heaven shines, And often is his gold complexion dimm'd; And every fair from fair sometime declines, By chance or nature's changing course untrimm'd;" data-modal-description="The rhythm and meter of Shakespeare's sonnet converted into melodic patterns with gentle, flowing harmonies.">
+                    <div class="gallery-media">
+                        <div style="width: 100%; height: 100%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                            🎵 Click for audio
+                        </div>
+                        <div class="text-overlay">
+                            <div class="overlay-text">
+                                "Shall I compare thee to a summer's day? 
+                                Thou art more lovely and more temperate..."
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3 class="caption-title">Shakespeare Sonnet 18</h3>
+                        <p class="caption-text">
+                            The rhythm and meter of Shakespeare's sonnet converted into melodic 
+                            patterns with gentle, flowing harmonies.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="features">
+        <div class="container">
+            <h2 class="section-title">Philosophy</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-light); margin-bottom: 2rem;">
+                    Fractotum is an experiment in <strong>algorithmic creativity without AI synthesis</strong>. 
+                    Instead of training on existing art or learning from human creativity, it explores how 
+                    pure mathematics and semantic understanding can generate entirely new forms of beauty.
+                </p>
+                <p style="color: var(--text-muted); margin-bottom: 3rem;">
+                    Every piece is unique to your text, emerging from the mathematical transformation of 
+                    meaning into visual and musical form. No borrowed aesthetics, no learned patterns — 
+                    just the hidden geometry of language made visible.
+                </p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/kendruska/fractotum" class="btn btn-primary">
+                        🚀 Get Started
+                    </a>
+                    <a href="https://github.com/kendruska/fractotum/blob/main/README.md" class="btn btn-secondary">
+                        📖 Documentation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <h3 class="footer-title">Fractotum</h3>
+                <p class="footer-description">
+                    Transforming literary text into procedural art through pure mathematical beauty. 
+                    An experiment in algorithmic creativity without artificial intelligence.
+                </p>
+                <div class="footer-links">
+                    <a href="https://github.com/kendruska/fractotum">GitHub</a>
+                    <a href="https://github.com/kendruska/fractotum/blob/main/README.md">Documentation</a>
+                    <a href="https://github.com/kendruska/fractotum/issues">Issues</a>
+                    <a href="mailto:your.email@example.com">Contact</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Fractotum Project. An artistic experiment in procedural creativity by Candela García.</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                        🙏 Special thanks to <strong>Aday</strong> for volunteering as tribute to test this procedural experiment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Gallery Item</h3>
+                <button class="modal-close" id="closeModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-media" id="modalMedia">
+                    <!-- Content will be inserted here -->
+                </div>
+                <div class="modal-text">
+                    <div>
+                        <h4 class="modal-source-title">Source Text</h4>
+                        <div class="modal-source-text" id="modalSourceText">
+                            <!-- Source text will be inserted here -->
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="modal-source-title">Description</h4>
+                        <p class="modal-description" id="modalDescription">
+                            <!-- Description will be inserted here -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.9)';
+            }
+        });
+
+        // Lazy loading for images
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.src;
+                    img.classList.remove('loading');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => {
+            img.classList.add('loading');
+            imageObserver.observe(img);
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('galleryModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMedia = document.getElementById('modalMedia');
+        const modalSourceText = document.getElementById('modalSourceText');
+        const modalDescription = document.getElementById('modalDescription');
+        const closeModal = document.getElementById('closeModal');
+
+        // Open modal when gallery item is clicked
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const type = item.dataset.modalType;
+                const title = item.dataset.modalTitle;
+                const src = item.dataset.modalSrc;
+                const text = item.dataset.modalText;
+                const description = item.dataset.modalDescription;
+
+                // Set modal content
+                modalTitle.textContent = title;
+                modalSourceText.textContent = text;
+                modalDescription.textContent = description;
+
+                // Clear previous media content
+                modalMedia.innerHTML = '';
+
+                // Add appropriate media based on type
+                if (type === 'image') {
+                    if (src) {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.alt = title;
+                        img.style.maxWidth = '100%';
+                        img.style.maxHeight = '100%';
+                        modalMedia.appendChild(img);
+                    } else {
+                        modalMedia.innerHTML = '<div style="color: var(--text-muted); text-align: center;">🖼️<br>Image Preview</div>';
+                    }
+                } else if (type === 'video') {
+                    if (src) {
+                        const video = document.createElement('video');
+                        video.src = src;
+                        video.controls = true;
+                        video.style.maxWidth = '100%';
+                        video.style.maxHeight = '100%';
+                        modalMedia.appendChild(video);
+                    } else {
+                        modalMedia.innerHTML = '<div class="modal-audio-placeholder"><div class="audio-icon">🎬</div><div>Video Preview</div></div>';
+                    }
+                } else if (type === 'audio') {
+                    const audioContainer = document.createElement('div');
+                    audioContainer.className = 'modal-audio-placeholder';
+                    
+                    if (src) {
+                        const audio = document.createElement('audio');
+                        audio.src = src;
+                        audio.controls = true;
+                        audio.style.width = '80%';
+                        audioContainer.innerHTML = '<div class="audio-icon">🎵</div>';
+                        audioContainer.appendChild(audio);
+                    } else {
+                        audioContainer.innerHTML = '<div class="audio-icon">🎵</div><div>MIDI Audio Preview</div><div style="font-size: 0.9rem; opacity: 0.7;">Generated from text semantics</div>';
+                    }
+                    
+                    modalMedia.appendChild(audioContainer);
+                }
+
+                // Show modal with animation
+                modal.style.display = 'flex';
+                requestAnimationFrame(() => {
+                    modal.classList.add('active');
+                });
+            });
+        });
+
+        // Close modal functionality
+        const closeModalFunction = () => {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        };
+
+        closeModal.addEventListener('click', closeModalFunction);
+
+        // Close modal when clicking outside content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModalFunction();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModalFunction();
+            }
+        });
+    </script>
+</body>
+</html>
